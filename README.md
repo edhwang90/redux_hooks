@@ -10,6 +10,9 @@ A simple currency exchange calculator built to demonstrate using redux with reac
 
 `yarn start` or `npm start`
 
+### Node Version
+
+14.18.1
 ---
 
 ### Updates

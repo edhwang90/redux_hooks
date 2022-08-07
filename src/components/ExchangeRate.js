@@ -5,12 +5,14 @@ import { CurrencyCodePicker } from "./CurrencyCodePicker";
 import { AmountField } from "./AmountField";
 import { getExchangeRates } from "../api";
 
+import { getAmount, getCurrencyCode } from '../store/rates';
+
 const supportedCurrencies = ["USD", "EUR", "JPY", "CAD", "GBP", "MXN"];
 
 export function ExchangeRate() {
 
-  const amount = useSelector(state => state.amount);
-  const currencyCode = useSelector(state => state.currencyCode);
+  const amount = useSelector(getAmount);
+  const currencyCode = useSelector(getCurrencyCode);
 
   const [currencyData, setCurrencyData] = useState({ USD: 1.0 });
 

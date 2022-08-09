@@ -1,6 +1,11 @@
+import { getExchangeRates } from '../api';
+
+export const supportedCurrencies = ["USD", "EUR", "JPY", "CAD", "GBP", "MXN"];
+
 const initialState = {
-  amount: "12.00",
-  currencyCode: "EUR"
+  amount: "19.99",
+  currencyCode: "JPY",
+  currencyData: { USD: 1 }
 }
 
 export const ratesReducer = (state = initialState, action) => {
@@ -9,6 +14,8 @@ export const ratesReducer = (state = initialState, action) => {
       return { ...state, amount: action.payload };
     case CURRENCY_CODE_CHANGED:
       return { ...state, currencyCode: action.payload };
+    case 'rates/ratesReceived':
+      return { ...state, currencyData: action.payload };
     default:
       return state;
   }
@@ -17,6 +24,7 @@ export const ratesReducer = (state = initialState, action) => {
 //selectors
 export const getAmount = (state) => state.rates.amount;
 export const getCurrencyCode = (state) => state.rates.currencyCode;
+export const getCurrencyData = (state) => state.rates.currencyData;
 
 //action types
 export const AMOUNT_CHANGED = 'rates/amountChanged';
@@ -28,7 +36,22 @@ export const changeAmount = (amount) => ({
   payload: amount
 });
 
-export const changeCurrencyCode = (currencyCode) => ({
-  type: CURRENCY_CODE_CHANGED,
-  payload: currencyCode
-});
+export function changeCurrencyCode(currencyCode) {
+  return function changeCurrencyCodeThunk(dispatch) {
+    dispatch({
+      type: CURRENCY_CODE_CHANGED,
+      payload: currencyCode
+    });
+    getExchangeRates(currencyCode, supportedCurrencies).then((rates) => {
+      dispatch({
+        type: 'ratest/ratesReceived',
+        payload: rates
+      })
+    })
+  }
+}
+
+// export const changeCurrencyCode = (currencyCode) => (dispatch) ({
+//   type: CURRENCY_CODE_CHANGED,
+//   payload: currencyCode
+// });

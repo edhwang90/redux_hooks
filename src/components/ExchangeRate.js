@@ -4,7 +4,6 @@ import { CurrencyCodePicker } from "./CurrencyCodePicker";
 import { AmountField } from "./AmountField";
 import { getAmount, getCurrencyCode, getCurrencyData, supportedCurrencies } from '../store/rates';
 
-
 export function ExchangeRate() {
   const amount = useSelector(getAmount);
   const currencyCode = useSelector(getCurrencyCode);

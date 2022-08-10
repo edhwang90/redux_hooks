@@ -35,7 +35,7 @@ export const ratesReducer = (state = initialState, action) => {
         currencyData.push({code, rate: action.payload[code]})
       }
 
-      return { ...state, currencyData: action.payload, supportedCurrencies: codes  };
+      return { ...state, currencyData: currencyData, supportedCurrencies: codes  };
     }
     default:
       return state;

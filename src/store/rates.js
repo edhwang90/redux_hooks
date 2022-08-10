@@ -28,14 +28,14 @@ export const ratesReducer = (state = initialState, action) => {
       }
     }
     case 'rates/ratesReceived': {
-      const codes = Object.keys(action.payload);
+      const codes = Object.keys(action.payload).concat(state.currencyCode);
       const currencyData = [];
 
       for (let code in action.payload) {
         currencyData.push({code, rate: action.payload[code]})
       }
 
-      return { ...state, currencyData: action.payload, supportedCurrencies: codes  }.concat(state.currencyCode);
+      return { ...state, currencyData: action.payload, supportedCurrencies: codes  };
     }
     default:
       return state;
@@ -72,9 +72,10 @@ export function changeCurrencyCode(currencyCode) {
       type: CURRENCY_CODE_CHANGED,
       payload: currencyCode
     });
+    
     getExchangeRates(currencyCode, supportedCurrencies).then((rates) => {
       dispatch({
-        type: 'ratest/ratesReceived',
+        type: 'rates/ratesReceived',
         payload: rates
       })
     })

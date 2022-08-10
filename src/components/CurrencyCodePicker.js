@@ -11,8 +11,8 @@ export const CurrencyCodePicker = ({ currencyCode }) => {
 
   return (
     <select className="currencyCode" value={currencyCode} onChange={onChange}>
-      {supportedCurrencies.map((code) => (
-        <option key={code} value={code}>
+      {supportedCurrencies.map((code, index) => (
+        <option key={`${code}${index}`} value={code}>
           {code}
         </option>
       ))}

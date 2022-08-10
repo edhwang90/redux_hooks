@@ -3,15 +3,16 @@ import { getName } from '../store/user';
 
 export const RateTable = ({ currencyData, amount }) => {
   const name = useSelector(getName);
-    
+  
   return (
     <table className="ExchangeRate-table">
       <tbody>
-        {currencyData.map(({ code, rate}) => {
+        {
+          Array.from(currencyData).map(({ code, rate }, index) => {
           // NOTE: normally avoid floating point math in JS
           const exchangeAmount = amount * rate || 0.0;
           return (
-            <tr key={code}>
+            <tr key={`${code}${index}`}>
               <td>{code}</td>
               <td>
                 {exchangeAmount.toLocaleString("en", {
@@ -20,8 +21,8 @@ export const RateTable = ({ currencyData, amount }) => {
                 })}
               </td>
             </tr>
-          );
-        })}
+          )})
+        }
       </tbody>
       <tfoot>
         <tr>

@@ -24,7 +24,9 @@ export const RateTable = ({ currencyData, amount }) => {
         })}
       </tbody>
       <tfoot>
-        <td colSpan={2}>Prepared for {name}</td>
+        <tr>
+          <td colSpan={2}>Prepared for {name}</td>
+        </tr>
       </tfoot>
     </table>
   );

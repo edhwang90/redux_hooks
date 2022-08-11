@@ -1,7 +1,5 @@
 import { getExchangeRates } from '../api';
 
-export const supportedCurrencies = ["USD", "EUR", "JPY", "CAD", "GBP", "MXN"];
-
 const initialState = {
   amount: "19.99",
   currencyCode: "JPY",
@@ -49,7 +47,7 @@ export const getCurrencyData = (state) => state.rates.currencyData;
 export const getSupportedCurrencies = (state) => state.rates.supportedCurrencies;
 export const getDisplayLabel = (state, currencyCode) => {
   const match = state.rates.currencyData.find(data => data.code === currencyCode);
-
+  
   if (match) return match.displayLabel;
 }
 

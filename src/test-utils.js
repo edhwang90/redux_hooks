@@ -6,7 +6,7 @@ const ReduxProvider = ({ children }) => {
   return <Provider store={store}>{children}</Provider>
 };
 
-const reduxRender = (ui, options) => 
+const reduxRender = (ui, options) =>
   render(ui, { wrapper: ReduxProvider }, options);
 
 export * from '@testing-library/react';

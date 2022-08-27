@@ -1,10 +1,11 @@
+import React from 'react';
 import { useDispatch } from 'react-redux';
 import { changeAmount } from '../store/rates';
 
-export function AmountField({ amount }) {
+export const AmountField = ({ amount }: { amount:string }) => {
   const dispatch = useDispatch();
 
-  const onChange = (e) => {
+  const onChange = (e:React.ChangeEvent<HTMLInputElement>) => {
     dispatch(changeAmount(e.target.value));
   }
 
@@ -17,5 +18,7 @@ export function AmountField({ amount }) {
         onChange={onChange}
       />
     </form>
-  );
+  )
 }
+
+export default AmountField;

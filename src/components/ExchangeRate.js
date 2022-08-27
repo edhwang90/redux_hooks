@@ -1,10 +1,10 @@
 import { useSelector } from 'react-redux';
 import { RateTable } from "./RateTable";
 import { CurrencyCodePicker } from "./CurrencyCodePicker";
-import { AmountField } from "./AmountField";
+import { AmountField } from "./AmountField.tsx";
 import { getAmount, getCurrencyCode, getCurrencyData, getSupportedCurrencies } from '../store/rates';
 
-export function ExchangeRate() {
+export const ExchangeRate = () => {
   const amount = useSelector(getAmount);
   const currencyCode = useSelector(getCurrencyCode);
   const currencyData = useSelector(getCurrencyData);
@@ -27,5 +27,5 @@ export function ExchangeRate() {
         <RateTable currencyData={currencyData} amount={amount} />
       </section>
     </>
-  );
+  )
 }

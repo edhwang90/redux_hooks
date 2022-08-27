@@ -61,7 +61,7 @@ export const changeAmount = (amount) => ({
   payload: amount
 });
 
-export function changeCurrencyCode(currencyCode) {
+export const changeCurrencyCode = (currencyCode) => {
   return function changeCurrencyCodeThunk(dispatch, getState) {
     const state = getState();
     const supportedCurrencies = getSupportedCurrencies(state);

@@ -1,3 +1,6 @@
+import { AnyAction, Dispatch } from 'redux';
+import { PayloadAction } from '@reduxjs/toolkit';
+import { AppState } from '../lib/types';
 import { getExchangeRates } from '../api';
 
 const initialState = {
@@ -7,14 +10,15 @@ const initialState = {
   supportedCurrencies: ["USD", "EUR", "JPY", "CAD", "GBP", "MXN"]
 }
 
-export const ratesReducer = (state = initialState, action) => {
+// to change <any>
+export const ratesReducer = (state = initialState, action:PayloadAction<any>) => {
   switch (action.type) {
     case AMOUNT_CHANGED:
       return { ...state, amount: action.payload };
     case CURRENCY_CODE_CHANGED:
       return { ...state, currencyCode: action.payload };
     case 'rates/labelReceived': {
-      const { displayLabel, currencyCode } = action.payload;
+      const { displayLabel, currencyCode }: { displayLabel:string, currencyCode:string} = action.payload;
       return {
         ...state,
         currencyData: state.currencyData.map(data => {
@@ -41,12 +45,12 @@ export const ratesReducer = (state = initialState, action) => {
 }
 
 //selectors
-export const getAmount = (state) => state.rates.amount;
-export const getCurrencyCode = (state) => state.rates.currencyCode;
-export const getCurrencyData = (state) => state.rates.currencyData;
-export const getSupportedCurrencies = (state) => state.rates.supportedCurrencies;
-export const getDisplayLabel = (state, currencyCode) => {
-  const match = state.rates.currencyData.find(data => data.code === currencyCode);
+export const getAmount = ({ rates }: { rates:AppState }) => rates.amount;
+export const getCurrencyCode = ({ rates }: { rates:AppState }) => rates.currencyCode;
+export const getCurrencyData = ({ rates }: { rates:AppState }) => rates.currencyData;
+export const getSupportedCurrencies = ({ rates }: { rates:AppState }) => rates.supportedCurrencies;
+export const getDisplayLabel = ({ rates }: { rates:AppState }, currencyCode:string) => {
+  const match = rates.currencyData.find(data => data.code === currencyCode);
   
   if (match) return match.displayLabel;
 }
@@ -56,13 +60,13 @@ export const AMOUNT_CHANGED = 'rates/amountChanged';
 export const CURRENCY_CODE_CHANGED = 'rates/currencyCodeChanged';
 
 //action creators
-export const changeAmount = (amount) => ({
+export const changeAmount = (amount:string) => ({
   type: AMOUNT_CHANGED,
   payload: amount
 });
 
-export const changeCurrencyCode = (currencyCode) => {
-  return function changeCurrencyCodeThunk(dispatch, getState) {
+export const changeCurrencyCode = (currencyCode:string) => {
+  return function changeCurrencyCodeThunk(dispatch:Dispatch, getState:any) {
     const state = getState();
     const supportedCurrencies = getSupportedCurrencies(state);
     
@@ -81,8 +85,8 @@ export const changeCurrencyCode = (currencyCode) => {
 }
 
 //thunks
-export const getInitialRates = (dispatch, getState) => {
+export const getInitialRates = (dispatch:Dispatch, getState) => {
   const state = getState();
-  const currencyCode = getCurrencyCode(state);
+  const currencyCode:string = getCurrencyCode(state);
   dispatch(changeCurrencyCode(currencyCode));
 }

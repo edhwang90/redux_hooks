@@ -11,7 +11,7 @@ export type AppState = {
   supportedCurrencies: string[]
 }
 
-// export type Actions = {
-//   type: string,
-//   payload: 
-// }
+export type AppAction = {
+  type: string,
+  payload: string
+}

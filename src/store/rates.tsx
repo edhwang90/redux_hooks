@@ -1,6 +1,6 @@
-import { AnyAction, Dispatch } from 'redux';
+import { Action, AnyAction, Dispatch } from 'redux';
 import { PayloadAction } from '@reduxjs/toolkit';
-import { AppState } from '../lib/types';
+import { AppState, AppAction } from '../lib/types';
 import { getExchangeRates } from '../api';
 
 const initialState = {
@@ -66,7 +66,7 @@ export const changeAmount = (amount:string) => ({
 });
 
 export const changeCurrencyCode = (currencyCode:string) => {
-  return function changeCurrencyCodeThunk(dispatch:Dispatch, getState:any) {
+  return function changeCurrencyCodeThunk(dispatch:Dispatch, getState:Function) {
     const state = getState();
     const supportedCurrencies = getSupportedCurrencies(state);
     
@@ -85,8 +85,11 @@ export const changeCurrencyCode = (currencyCode:string) => {
 }
 
 //thunks
-export const getInitialRates = (dispatch:Dispatch, getState) => {
+export const getInitialRates = (dispatch:Dispatch, getState:Function) => {
   const state = getState();
   const currencyCode:string = getCurrencyCode(state);
-  dispatch(changeCurrencyCode(currencyCode));
+  // const changedCurrencyCode:Function = changeCurrencyCode(currencyCode);
+   dispatch(changedCurrencyCode);
+  //changeCurrencyCode(currencyCode);
+
 }

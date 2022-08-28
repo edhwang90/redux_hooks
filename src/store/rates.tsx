@@ -88,8 +88,6 @@ export const changeCurrencyCode = (currencyCode:string) => {
 export const getInitialRates = (dispatch:Dispatch, getState:Function) => {
   const state = getState();
   const currencyCode:string = getCurrencyCode(state);
-  // const changedCurrencyCode:Function = changeCurrencyCode(currencyCode);
-   dispatch(changedCurrencyCode);
-  //changeCurrencyCode(currencyCode);
-
+  const changedCurrencyCode:Function = changeCurrencyCode;
+  dispatch(changedCurrencyCode(currencyCode));
 }

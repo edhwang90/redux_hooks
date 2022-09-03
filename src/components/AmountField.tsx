@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { changeAmount } from '../store/rates';
 
-export const AmountField = ({ amount }: { amount:string }) => {
+export const AmountField = ({ amount }: { amount:number }) => {
   const dispatch = useDispatch();
 
   const onChange = (e:React.ChangeEvent<HTMLInputElement>) => {

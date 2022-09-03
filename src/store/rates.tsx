@@ -45,7 +45,7 @@ export const ratesReducer = (state = initialState, action:PayloadAction<any>) =>
 }
 
 //selectors
-export const getAmount = ({ rates }: { rates:AppState }) => rates.amount;
+export const getAmount = ({ rates }: { rates:AppState }) => parseFloat(rates.amount);
 export const getCurrencyCode = ({ rates }: { rates:AppState }) => rates.currencyCode;
 export const getCurrencyData = ({ rates }: { rates:AppState }) => rates.currencyData;
 export const getSupportedCurrencies = ({ rates }: { rates:AppState }) => rates.supportedCurrencies;

@@ -1,14 +1,17 @@
+import React from 'react';
 import { useSelector } from 'react-redux';
 import { getName } from '../store/user';
 
-export const RateTable = ({ currencyData, amount }) => {
+import { Rate } from '../lib/types';
+
+export const RateTable = ({ currencyData, amount }: {currencyData:Rate[], amount:number}) => {
   const name = useSelector(getName);
 
   return (
     <table className="ExchangeRate-table">
       <tbody>
         {
-          currencyData.map(({ code, rate }, index) => {
+          currencyData.map(({ code, rate }: { code:string, rate:number}, index) => {
           // NOTE: normally avoid floating point math in JS
           const exchangeAmount = amount * rate || 0.0;
           return (

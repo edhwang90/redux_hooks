@@ -4,11 +4,11 @@ import { changeCurrencyCode, getSupportedCurrencies } from '../store/rates';
 
 export const CurrencyCodePicker = ({ currencyCode }:{ currencyCode:string}) => {
   const dispatch = useDispatch();
-  const supportedCurrencies = useSelector(getSupportedCurrencies);
+  const supportedCurrencies:string[] = useSelector(getSupportedCurrencies);
 
   const onChange = (e:React.ChangeEvent<HTMLSelectElement>) => {
     const changedCurrencyCode:Function = changeCurrencyCode;
-    changedCurrencyCode(e.target.value);
+    dispatch(changedCurrencyCode(e.target.value));
   }
 
   return (

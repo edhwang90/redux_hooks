@@ -1,3 +1,6 @@
+export interface IIndexable {
+  [key:string]: any;
+}
 type CurrencyData = {
   displayLabel: string,
   code: string,
@@ -20,6 +23,24 @@ export type Rate = {
   displayLabel: string,
   code: string,
   rate: number
+}
+
+export type ratesType = {
+  usd:number,
+  eur:number,
+  mxn:number,
+  jpy:number,
+  cad:number
+}
+
+type errorType = {
+  info:string
+}
+
+export type Result = {
+  success:boolean,
+  rates: ratesType,
+  error: errorType
 }
 
 // export type RatesLabels = {

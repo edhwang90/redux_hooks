@@ -1,5 +1,5 @@
 import exchangeRates from "./rates.json";
-
+import { ratesType, IIndexable } from "./types";
 // sleep helper to simulate a network call
 const sleep = (time:number) => new Promise((res) => setTimeout(res, time));
 
@@ -16,8 +16,9 @@ export async function fetch(url:string) {
 
   // Todo:
   // Due to data structure at rates.json and being mock
-  const getExchangeRates:any = exchangeRates;
-  const rates:any = getExchangeRates[base];
+  const getExchangeRates:Object = exchangeRates;
+
+  const rates:ratesType = (getExchangeRates as IIndexable)[base];
   return {
     // simulate the JSON method on the fetch response
     async json() {
